@@ -98,6 +98,33 @@ class ApiService {
   /// Same idea for the camera's own IP.
   Future<bool> testLocalCam(String ip) => _healthCheck(ip);
 
+  /// Same idea for the cloud/mock server's full URL (e.g. a Render
+  /// deployment) — used by the "PetPulse Server" card in Settings. Tolerates
+  /// a free-tier cold start the same way normal cloud calls do, so a sleepy
+  /// server doesn't read as "unreachable" on the first tap.
+  Future<bool> testCloudUrl(String url) async {
+    try {
+      final res = await _client
+          .get(Uri.parse('$url/health'))
+          .timeout(_cloudFirstTimeout);
+      return res.statusCode == 200;
+    } on TimeoutException {
+      isWakingCloud.value = true;
+      try {
+        final res = await _client
+            .get(Uri.parse('$url/health'))
+            .timeout(_cloudWakeTimeout);
+        return res.statusCode == 200;
+      } catch (_) {
+        return false;
+      } finally {
+        isWakingCloud.value = false;
+      }
+    } catch (_) {
+      return false;
+    }
+  }
+
   Future<bool> _healthCheck(String ip) async {
     try {
       final res = await _client

@@ -31,6 +31,8 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const _ServerConnectionCard(),
+                const SizedBox(height: 20),
                 const _HubConnectionCard(),
                 const SizedBox(height: 20),
                 const _CamConnectionCard(),
@@ -249,6 +251,130 @@ class _DeviceRow extends StatelessWidget {
         DeviceKind.loadCell => 'Bowl weight sensor',
         DeviceKind.ultrasonic => 'Food-level sensor',
       };
+}
+
+/// Lets the user point the app at their deployed cloud/mock server (e.g. a
+/// Render URL) — this is where Schedule, History, Alerts, and the pet
+/// profile live; see docs/API_CONTRACT.md and mock_server/DEPLOY.md.
+/// Distinct from the Feeder Hub/Cam cards below, which are LAN-only IPs for
+/// the physical boards.
+class _ServerConnectionCard extends StatefulWidget {
+  const _ServerConnectionCard();
+
+  @override
+  State<_ServerConnectionCard> createState() => _ServerConnectionCardState();
+}
+
+class _ServerConnectionCardState extends State<_ServerConnectionCard> {
+  late final TextEditingController _controller;
+  bool _testing = false;
+  bool? _lastResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        TextEditingController(text: context.read<ApiService>().cloudBaseUrl);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _connect() async {
+    var url = _controller.text.trim();
+    if (url.isEmpty) return;
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://$url';
+    }
+    url = url.replaceFirst(RegExp(r'/+$'), '');
+    _controller.text = url;
+    setState(() {
+      _testing = true;
+      _lastResult = null;
+    });
+    final api = context.read<ApiService>();
+    final ok = await api.testCloudUrl(url);
+    if (ok) {
+      await api.setCloudBaseUrl(url);
+    }
+    if (!mounted) return;
+    setState(() {
+      _testing = false;
+      _lastResult = ok;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const PpCardKicker('PetPulse Server'),
+        const SizedBox(height: 8),
+        PpCard(
+          elevation: PpCardElevation.sm,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PpInput(
+                label: 'Server URL',
+                controller: _controller,
+                placeholder: 'https://your-service.onrender.com',
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Where Schedule, History, Alerts, and your pet profile are '
+                'stored — see mock_server/DEPLOY.md. A free-tier host can '
+                'take up to a minute to wake up on the first request.',
+                style: ppBody(
+                    size: 11, color: PpColors.text.withValues(alpha: 0.5)),
+              ),
+              const SizedBox(height: 12),
+              PpButton(
+                label: _testing ? 'Connecting…' : 'Connect',
+                height: 42,
+                onPressed: _testing ? null : _connect,
+              ),
+              if (_lastResult != null) ...[
+                const SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      _lastResult!
+                          ? Icons.check_circle_rounded
+                          : Icons.error_rounded,
+                      size: 16,
+                      color: _lastResult!
+                          ? PpColors.accent2_700
+                          : PpColors.accent700,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        _lastResult!
+                            ? 'Connected — Schedule, History, and Alerts will use this server.'
+                            : "Couldn't reach that URL. Check it's correct and the server is deployed.",
+                        style: ppBody(
+                          size: 12,
+                          color: _lastResult!
+                              ? PpColors.accent2_700
+                              : PpColors.accent700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 /// Lets the user point the app at a real ESP32-S3 hub's local IP.
