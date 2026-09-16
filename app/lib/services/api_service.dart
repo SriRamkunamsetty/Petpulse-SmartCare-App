@@ -31,7 +31,7 @@ class ApiService {
 
   final http.Client _client;
 
-  static const defaultCloudBaseUrl = 'https://api.petpulse.example';
+  static const defaultCloudBaseUrl = 'http://192.168.31.2:4000';
   static const _localTimeout = Duration(milliseconds: 800);
   static const _requestTimeout = Duration(seconds: 10);
   // A free-tier host (e.g. Render's free web service plan) spins down after
