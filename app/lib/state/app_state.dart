@@ -129,21 +129,28 @@ class AppState extends ChangeNotifier {
     bootstrapping = true;
     notifyListeners();
     try {
-      await _api.restoreSession();
-      final prefs = await SharedPreferences.getInstance();
+      await _bootstrapOnce();
+      bootstrapError = null;
+    } on ApiException catch (e) {
+      bootstrapError = e.message;
+    } finally {
+      bootstrapping = false;
+      notifyListeners();
+    }
+  }
+
+  /// The actual restore/register/load sequence, retrying once with a fresh
+  /// anonymous account if the saved token gets a 401 — mock_server keeps
+  /// accounts in memory only, so a redeploy/restart wipes them, orphaning
+  /// any token saved on-device from before it. Without this, a server
+  /// restart leaves the app stuck on the bootstrap error screen with an
+  /// HTTP 401 the user has no way to clear themselves.
+  Future<void> _bootstrapOnce({bool allowRetry = true}) async {
+    await _api.restoreSession();
+    final prefs = await SharedPreferences.getInstance();
+    try {
       if (!_api.hasToken) {
-        // The design has no login screen — the app authenticates itself
-        // with a per-install anonymous account on first launch so every
-        // call in docs/API_CONTRACT.md still goes through a real,
-        // authorized backend.
-        final rand = Random.secure();
-        final suffix =
-            List.generate(12, (_) => rand.nextInt(16).toRadixString(16)).join();
-        final email = 'device-$suffix@petpulse.local';
-        final password =
-            List.generate(20, (_) => rand.nextInt(16).toRadixString(16)).join();
-        await _api.register(email, password);
-        await prefs.setString('pp_anon_email', email);
+        await _registerAnonAccount(prefs);
       }
       onboarded = prefs.getBool('pp_onboarded') ?? false;
       units = prefs.getString('pp_units') ?? 'g';
@@ -154,13 +161,28 @@ class AppState extends ChangeNotifier {
         await _loadAll();
         _startPolling();
       }
-      bootstrapError = null;
     } on ApiException catch (e) {
-      bootstrapError = e.message;
-    } finally {
-      bootstrapping = false;
-      notifyListeners();
+      if (e.statusCode == 401 && allowRetry) {
+        await _api.clearToken();
+        await _bootstrapOnce(allowRetry: false);
+        return;
+      }
+      rethrow;
     }
+  }
+
+  // The design has no login screen — the app authenticates itself with a
+  // per-install anonymous account on first launch so every call in
+  // docs/API_CONTRACT.md still goes through a real, authorized backend.
+  Future<void> _registerAnonAccount(SharedPreferences prefs) async {
+    final rand = Random.secure();
+    final suffix =
+        List.generate(12, (_) => rand.nextInt(16).toRadixString(16)).join();
+    final email = 'device-$suffix@petpulse.local';
+    final password =
+        List.generate(20, (_) => rand.nextInt(16).toRadixString(16)).join();
+    await _api.register(email, password);
+    await prefs.setString('pp_anon_email', email);
   }
 
   Future<void> _loadAll() async {

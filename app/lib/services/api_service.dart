@@ -67,6 +67,17 @@ class ApiService {
     await prefs.setString('pp_auth_token', token);
   }
 
+  /// Drops a saved token that the server no longer recognizes — e.g.
+  /// mock_server keeps accounts in memory only, so a redeploy/restart wipes
+  /// them, orphaning any token saved on-device from before it. Used by
+  /// [AppState.bootstrap] to recover from that with a fresh anonymous
+  /// account instead of getting stuck on a 401.
+  Future<void> clearToken() async {
+    _token = null;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('pp_auth_token');
+  }
+
   Future<void> setLocalHubIp(String ip) async {
     _localBaseUrl = 'http://$ip';
     final prefs = await SharedPreferences.getInstance();
