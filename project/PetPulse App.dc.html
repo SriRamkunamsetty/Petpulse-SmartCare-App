@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-ae606c1f-e90b-41e4-bf98-7324474afff6/styles.css">
+  <script src="_ds/organic-ae606c1f-e90b-41e4-bf98-7324474afff6/_ds_bundle.js"></script>
+  <style>
+    body{margin:0;background:#e8ddc9;display:flex;justify-content:center;padding:40px 20px;font-family:var(--font-body)}
+    .pp-frame{width:402px;height:874px;border-radius:48px;overflow:hidden;position:relative;background:var(--color-bg);box-shadow:0 40px 80px rgba(46,43,37,0.28),0 0 0 1px rgba(0,0,0,0.12);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+    .pp-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;border-radius:24px;background:#000;z-index:50}
+    .pp-statusbar{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;gap:154px;align-items:center;justify-content:center;padding:21px 24px 14px;box-sizing:border-box}
+    .pp-home-indicator{position:absolute;bottom:0;left:0;right:0;z-index:60;height:34px;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;pointer-events:none}
+    .pp-screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+    .pp-scroll{flex:1;overflow-y:auto;padding-bottom:118px}
+    .pp-tabbar{position:absolute;left:14px;right:14px;bottom:14px;z-index:40;border-radius:28px;overflow:hidden;box-shadow:0 8px 24px rgba(46,43,37,0.22)}
+    .pp-tabbar-glass{position:absolute;inset:0;backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);background:color-mix(in srgb, var(--color-neutral-900) 8%, rgba(255,255,255,0.72));border:0.5px solid rgba(255,255,255,0.5);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,0.6)}
+    .pp-tab{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 0 10px;cursor:pointer;background:none;border:none;font-family:var(--font-body)}
+    .pp-tab-label{font-size:10.5px;font-weight:700;letter-spacing:0.01em}
+    .pp-glass-btn{width:36px;height:36px;border-radius:999px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;box-shadow:0 1px 3px rgba(0,0,0,0.08),0 3px 10px rgba(0,0,0,0.06)}
+    .pp-glass-btn-bg{position:absolute;inset:0;border-radius:999px;backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);background:rgba(255,255,255,0.55);border:0.5px solid rgba(0,0,0,0.06);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,0.7)}
+    .pp-header{padding:60px 20px 14px;display:flex;align-items:flex-start;justify-content:space-between}
+    .pp-title{font-family:var(--font-heading);font-size:30px;color:var(--color-text);margin:0}
+    .pp-subtitle{font-size:13px;color:color-mix(in srgb, var(--color-text) 55%, transparent);margin-top:2px}
+    .pp-sheet-backdrop{position:absolute;inset:0;z-index:70;background:color-mix(in srgb, var(--color-neutral-900) 45%, transparent);display:flex;align-items:flex-end}
+    .pp-sheet{width:100%;background:var(--color-bg);border-radius:28px 28px 0 0;box-shadow:0 -12px 32px rgba(46,43,37,0.25);padding:10px 20px 28px;max-height:88%;overflow-y:auto}
+    .pp-sheet-handle{width:36px;height:4.5px;border-radius:999px;background:var(--color-neutral-400);margin:6px auto 14px}
+    .pp-dot{width:7px;height:7px;border-radius:999px;flex-shrink:0}
+    @keyframes pp-spin{to{transform:rotate(360deg)}}
+  </style>
+</helmet>
+<div class="pp-frame">
+  <div class="pp-island"></div>
+  <div class="pp-statusbar">
+    <span style="flex:1;text-align:center;font:590 15px -apple-system,system-ui;color:{{ statusBarColor }}">9:41</span>
+    <span style="flex:1;text-align:center;font-size:12px;color:{{ statusBarColor }}">●●● 5G 100%</span>
+  </div>
+
+  <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+    <section class="pp-screen" data-screen-label="Onboarding">
+
+      <sc-if value="{{ isObWelcome }}" hint-placeholder-val="{{ true }}">
+        <div style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:0 32px;text-align:center;background:linear-gradient(160deg,var(--color-accent-800),var(--color-accent-900))">
+          <div style="width:76px;height:76px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h1 style="color:#fff;font-size:34px;margin:0 0 8px">PetPulse</h1>
+            <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.5;margin:0">Smart care for your pet — even when you're away.</p>
+          </div>
+          <button class="btn btn-block" style="height:52px;background:#fff;color:var(--color-accent-800);margin-top:14px;width:100%" onClick="{{ goObBasics }}">Get Started</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isObStepScreen }}" hint-placeholder-val="{{ false }}">
+        <div class="pp-scroll" style="padding-bottom:24px">
+          <div style="padding:60px 20px 0;display:flex;align-items:center;gap:10px">
+            <button class="pp-glass-btn" onClick="{{ obBack }}" aria-label="Back">
+              <div class="pp-glass-btn-bg"></div>
+              <svg width="10" height="16" viewBox="0 0 12 20" fill="none" style="position:relative;z-index:1"><path d="M10 2L2 10l8 8" stroke="#3a3632" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ obDots }}" as="dot" hint-placeholder-count="4">
+                <div style="width:20px;height:5px;border-radius:999px;background:{{ dot.bg }}"></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{ isObBasics }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:18px 20px 0">
+              <p class="pp-title" style="font-size:24px">Tell us about your pet</p>
+              <p class="pp-subtitle" style="margin-bottom:20px">Helps PetPulse personalize feeding &amp; alerts.</p>
+              <div class="field" style="margin-bottom:14px"><label>Pet name</label><input class="input" placeholder="e.g. Milo" value="{{ obName }}" onChange="{{ setObName }}"></div>
+              <div class="field" style="margin-bottom:14px"><label>Breed</label><input class="input" placeholder="e.g. Corgi" value="{{ obBreed }}" onChange="{{ setObBreed }}"></div>
+              <div class="card" style="margin-bottom:14px;flex-direction:row;align-items:center;justify-content:space-between">
+                <span style="font-size:13px;font-weight:600">Age</span>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <button class="pp-glass-btn" style="box-shadow:none;width:32px;height:32px" onClick="{{ decAge }}">−</button>
+                  <span style="font-family:var(--font-heading);font-size:16px;min-width:26px;text-align:center">{{ obAgeValue }}</span>
+                  <button class="pp-glass-btn" style="box-shadow:none;width:32px;height:32px" onClick="{{ incAge }}">+</button>
+                  <div class="seg" style="font-size:11px">
+                    <label class="seg-opt"><input type="radio" name="ageunit" checked="{{ isAgeYrs }}" onChange="{{ setAgeYrs }}"><span>yrs</span></label>
+                    <label class="seg-opt"><input type="radio" name="ageunit" checked="{{ isAgeMos }}" onChange="{{ setAgeMos }}"><span>mos</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="card" style="margin-bottom:14px;flex-direction:row;align-items:center;justify-content:space-between">
+                <span style="font-size:13px;font-weight:600">Weight</span>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <button class="pp-glass-btn" style="box-shadow:none;width:32px;height:32px" onClick="{{ decWeight }}">−</button>
+                  <span style="font-family:var(--font-heading);font-size:16px;min-width:26px;text-align:center">{{ obWeightValue }}</span>
+                  <button class="pp-glass-btn" style="box-shadow:none;width:32px;height:32px" onClick="{{ incWeight }}">+</button>
+                  <div class="seg" style="font-size:11px">
+                    <label class="seg-opt"><input type="radio" name="wtunit" checked="{{ isWeightKg }}" onChange="{{ setWeightKg }}"><span>kg</span></label>
+                    <label class="seg-opt"><input type="radio" name="wtunit" checked="{{ isWeightLb }}" onChange="{{ setWeightLb }}"><span>lb</span></label>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" style="height:50px;margin-top:6px" disabled="{{ obBasicsInvalid }}" onClick="{{ goObHealth }}">Continue</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isObHealth }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:18px 20px 0">
+              <p class="pp-title" style="font-size:24px">Any health conditions?</p>
+              <p class="pp-subtitle" style="margin-bottom:20px">Optional — helps us flag unusual feeding patterns.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                <sc-for list="{{ healthChips }}" as="h" hint-placeholder-count="6">
+                  <button class="btn" style="background:{{ h.bg }};color:{{ h.color }};font-size:13px;padding:8px 14px" onClick="{{ h.toggle }}">{{ h.label }}</button>
+                </sc-for>
+              </div>
+              <div class="field" style="margin-bottom:6px"><label>Anything else? (optional)</label><textarea class="input" rows="3" placeholder="e.g. sensitive stomach, on medication…" value="{{ obNotes }}" onChange="{{ setObNotes }}"></textarea></div>
+              <button class="btn btn-primary btn-block" style="height:50px;margin-top:12px" onClick="{{ goObPairing }}">Continue</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isObPairing }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:18px 20px 0;text-align:center">
+              <p class="pp-title" style="font-size:24px">Connect your feeder</p>
+              <p class="pp-subtitle" style="margin-bottom:20px">Make sure your PetPulse Feeder is powered on and nearby.</p>
+              <sc-if value="{{ isObPairSearch }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:10px 0">
+                  <div style="width:60px;height:60px;border-radius:999px;border:4px solid var(--color-neutral-300);border-top-color:var(--color-accent);margin:0 auto 16px;animation:pp-spin 0.9s linear infinite"></div>
+                  <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin-bottom:10px">Searching for nearby devices…</p>
+                  <button class="btn btn-ghost" style="font-size:12px" onClick="{{ failObPairing }}">Trouble connecting?</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isObPairFailed }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:6px 0">
+                  <div style="width:56px;height:56px;border-radius:999px;background:var(--color-neutral-200);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--color-neutral-600)" stroke-width="2.2"/><path d="M9 9l6 6M15 9l-6 6" stroke="var(--color-neutral-600)" stroke-width="2.2" stroke-linecap="round"/></svg>
+                  </div>
+                  <p style="font-size:14px;font-weight:700;margin-bottom:4px">Couldn't find your feeder</p>
+                  <p style="font-size:12.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin-bottom:14px">Make sure it's powered on and within Wi-Fi range.</p>
+                  <button class="btn btn-primary btn-block" style="height:46px" onClick="{{ goObPairing }}">Try Again</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isObPairFound }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:6px 0">
+                  <div style="width:56px;height:56px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 8.5a2 2 0 012-2h2l1.2-2h5.6L16 6.5h2a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="var(--color-accent-700)" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="var(--color-accent-700)" stroke-width="2.1"/></svg>
+                  </div>
+                  <p style="font-size:14px;font-weight:700;margin-bottom:4px">PetPulse-Feeder-1 found</p>
+                  <button class="btn btn-primary btn-block" style="height:50px;margin-top:8px" onClick="{{ connectObDevice }}">Connect</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isObPairDone }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:6px 0">
+                  <div style="width:56px;height:56px;border-radius:999px;background:var(--color-accent-2-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <p style="font-size:14px;font-weight:700">Connected</p>
+                </div>
+              </sc-if>
+              <button class="btn btn-primary btn-block" style="height:50px;margin-top:20px" disabled="{{ obPairingContinueDisabled }}" onClick="{{ goObDone }}">Continue</button>
+              <button class="btn btn-ghost btn-block" style="margin-top:6px" onClick="{{ skipObPairing }}">Skip for now</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isObDone }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:18px 20px 0;text-align:center">
+              <div style="width:64px;height:64px;border-radius:999px;background:var(--color-accent-2-100);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <p class="pp-title" style="font-size:24px">You're all set!</p>
+              <p class="pp-subtitle" style="margin-bottom:18px">Here's what we've got</p>
+              <div class="card elev-sm" style="text-align:left;margin-bottom:20px">
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Name</span><strong>{{ obName }}</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Breed</span><strong>{{ obBreed }}</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Age</span><strong>{{ obAgeValue }} {{ obAgeUnitLabel }}</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Weight</span><strong>{{ obWeightValue }}{{ obWeightUnit }}</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Health</span><strong>{{ obHealthSummary }}</strong></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="opacity:0.6">Feeder</span><strong>{{ obDeviceSummary }}</strong></div>
+              </div>
+              <button class="btn btn-primary btn-block" style="height:52px" onClick="{{ finishOnboarding }}">Go to Dashboard</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <section class="pp-screen" data-screen-label="Home">
+      <div class="pp-scroll">
+        <div class="pp-header">
+          <div>
+            <p class="pp-title">Hey, {{ petName }}</p>
+            <p class="pp-subtitle">{{ dayGreeting }}</p>
+          </div>
+          <button class="pp-glass-btn" onClick="{{ openAlerts }}" aria-label="Alerts">
+            <div class="pp-glass-btn-bg"></div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="position:relative;z-index:1">
+              <path d="M18 8a6 6 0 10-12 0c0 3.5-1 5-2 6.5h16c-1-1.5-2-3-2-6.5Z" stroke="#3a3632" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.5 17a2.5 2.5 0 005 0" stroke="#3a3632" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <sc-if value="{{ hasUnreadAlerts }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:999px;background:var(--color-accent);border:1.5px solid var(--color-bg)"></div>
+            </sc-if>
+          </button>
+        </div>
+
+        <div style="padding:0 20px;display:flex;flex-direction:column;gap:14px">
+
+          <sc-if value="{{ isConnIssue }}" hint-placeholder-val="{{ false }}">
+            <div class="card elev-sm" style="background:{{ bannerBg }};flex-direction:row;gap:10px;align-items:flex-start">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M12 3L2 20h20L12 3z" stroke="{{ bannerFg }}" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="{{ bannerFg }}" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <div style="flex:1"><div style="font-size:13px;font-weight:700;color:{{ bannerFg }}">{{ bannerTitle }}</div><div style="font-size:12px;color:{{ bannerFg }};opacity:0.85;margin-top:1px">{{ bannerDetail }}</div></div>
+            </div>
+          </sc-if>
+
+          <div class="card elev-md" style="background:linear-gradient(135deg,var(--color-accent-800),var(--color-accent-900));color:#fff;padding:16px;border-radius:calc(var(--radius-lg)*1.15);cursor:pointer" onClick="{{ openCamera }}">
+            <div style="position:relative;border-radius:var(--radius-md);overflow:hidden;aspect-ratio:16/9;background:radial-gradient(circle at 30% 20%, #4a4038, #211d18)">
+              <div style="position:absolute;inset:0;opacity:0.35;background:repeating-linear-gradient(115deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 6px)"></div>
+              <div style="position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.4);padding:4px 9px;border-radius:999px">
+                <div style="width:6px;height:6px;border-radius:999px;background:{{ liveDotColor }}"></div>
+                <span style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#fff">{{ liveLabel }}</span>
+              </div>
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+                <div style="width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8V4z"/></svg>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
+              <div>
+                <div style="font-family:var(--font-heading);font-size:15px">Feeder Cam</div>
+                <div style="font-size:11px;opacity:0.7">Kitchen · ESP32-CAM</div>
+              </div>
+              <span class="tag" style="background:rgba(255,255,255,0.16);color:#fff">{{ cameraTagLabel }}</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="card elev-sm">
+              <div class="card-kicker">Bowl</div>
+              <div style="font-family:var(--font-heading);font-size:26px">{{ bowlDisplay }}</div>
+              <div class="card-meta">{{ bowlMeta }}</div>
+            </div>
+            <div class="card elev-sm">
+              <div class="card-kicker">Food Level</div>
+              <div style="font-family:var(--font-heading);font-size:26px">{{ foodDisplay }}</div>
+              <div style="height:6px;border-radius:999px;background:var(--color-neutral-300);overflow:hidden;margin-top:2px">
+                <div style="height:100%;border-radius:999px;background:var(--color-accent-2-500);width:{{ foodLevelPct }}%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card elev-sm" style="flex-direction:row;align-items:center;justify-content:space-between">
+            <div>
+              <div class="card-kicker">Next Feeding</div>
+              <div class="card-title">{{ nextFeedTime }} · {{ nextFeedGrams }}g</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--color-accent-700)" stroke-width="2.2"/><path d="M12 7v5l3.5 2" stroke="var(--color-accent-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <button class="btn btn-primary btn-block" style="height:52px;font-size:15px" disabled="{{ isDeviceOffline }}" onClick="{{ openFeedSheet }}">{{ feedBtnLabel }}</button>
+
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+    <section class="pp-screen" data-screen-label="Schedule">
+      <div class="pp-scroll">
+        <div class="pp-header" style="padding-bottom:6px">
+          <div>
+            <p class="pp-title">Schedule</p>
+            <p class="pp-subtitle">Time & day-based feeding</p>
+          </div>
+          <button class="pp-glass-btn" onClick="{{ openAddSchedule }}" aria-label="Add">
+            <div class="pp-glass-btn-bg"></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="position:relative;z-index:1"><path d="M12 5v14M5 12h14" stroke="#3a3632" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <div style="display:flex;gap:8px;padding:8px 20px 4px;overflow-x:auto">
+          <sc-for list="{{ daysPills }}" as="d" hint-placeholder-count="7">
+            <button class="btn" style="flex-shrink:0;background:{{ d.bg }};color:{{ d.color }};border:1px solid var(--color-divider);font-size:13px;padding:7px 14px" onClick="{{ d.select }}">{{ d.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="padding:14px 20px 0;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ scheduleForDay }}" as="item" hint-placeholder-count="2">
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px">
+              <div style="width:38px;height:38px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--color-accent-700)" stroke-width="2.2"/><path d="M12 7v5l3.5 2" stroke="var(--color-accent-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div style="flex:1">
+                <div class="card-title" style="font-size:16px">{{ item.time }}</div>
+                <div class="card-meta">{{ item.grams }}g portion</div>
+              </div>
+              <button onClick="{{ item.toggle }}" style="width:44px;height:26px;border-radius:999px;background:{{ item.switchBg }};border:none;position:relative;cursor:pointer;flex-shrink:0">
+                <div style="width:20px;height:20px;border-radius:999px;background:#fff;position:absolute;top:3px;left:{{ item.switchPos }};box-shadow:0 1px 2px rgba(0,0,0,0.25);transition:left .15s"></div>
+              </button>
+            </div>
+          </sc-for>
+          <button class="btn btn-secondary btn-block" style="height:46px;margin-top:4px" onClick="{{ openAddSchedule }}">+ Add feeding time</button>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isCamera }}" hint-placeholder-val="{{ false }}">
+    <section class="pp-screen" data-screen-label="Camera">
+      <div class="pp-scroll">
+        <div class="pp-header" style="padding-bottom:6px">
+          <div>
+            <p class="pp-title">Live Camera</p>
+            <p class="pp-subtitle">ESP32-CAM · Kitchen</p>
+          </div>
+        </div>
+        <div style="padding:0 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;background:radial-gradient(circle at 30% 20%, #4a4038, #211d18);box-shadow:var(--shadow-md)">
+            <div style="position:absolute;inset:0;opacity:0.35;background:repeating-linear-gradient(115deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 6px)"></div>
+            <div style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:999px">
+              <div style="width:6px;height:6px;border-radius:999px;background:#ff5b4a"></div>
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:0.06em;color:#fff">LIVE</span>
+            </div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.4);padding:4px 10px;border-radius:999px;font-size:10.5px;color:#fff">720p</div>
+            <sc-if value="{{ snapshotFlash }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;background:#fff"></div>
+            </sc-if>
+          </div>
+          <div style="display:flex;justify-content:center;gap:16px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <button class="pp-glass-btn" style="width:48px;height:48px" onClick="{{ takeSnapshot }}">
+                <div class="pp-glass-btn-bg"></div>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" style="position:relative;z-index:1"><path d="M4 8.5a2 2 0 012-2h2l1.2-2h5.6L16 6.5h2a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="#3a3632" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="#3a3632" stroke-width="2.1"/></svg>
+              </button>
+              <span style="font-size:10px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">Snapshot</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <button class="pp-glass-btn" style="width:48px;height:48px;background:{{ micBtnBg }}" onClick="{{ toggleMic }}">
+                <div class="pp-glass-btn-bg"></div>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="position:relative;z-index:1"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#3a3632" stroke-width="2.1"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="#3a3632" stroke-width="2.1" stroke-linecap="round"/></svg>
+              </button>
+              <span style="font-size:10px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ micLabel }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <button class="pp-glass-btn" style="width:48px;height:48px" onClick="{{ toggleNightVision }}">
+                <div class="pp-glass-btn-bg"></div>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="position:relative;z-index:1"><path d="M20 14.5A8 8 0 119.5 4a6.5 6.5 0 1010.5 10.5z" stroke="#3a3632" stroke-width="2" stroke-linejoin="round"/></svg>
+              </button>
+              <span style="font-size:10px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ nightLabel }}</span>
+            </div>
+          </div>
+          <div class="card elev-sm">
+            <div class="card-kicker">Connection</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:2px"><span>Signal strength</span><span style="font-weight:700">Strong</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px"><span>Last snapshot</span><span style="font-weight:700">{{ lastSnapshot }}</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
+    <section class="pp-screen" data-screen-label="History">
+      <div class="pp-scroll">
+        <div class="pp-header" style="padding-bottom:6px">
+          <div>
+            <p class="pp-title">History</p>
+            <p class="pp-subtitle">This week's feeding activity</p>
+          </div>
+        </div>
+        <div style="padding:0 20px;display:flex;flex-direction:column;gap:14px">
+          <div class="card elev-sm">
+            <div class="card-kicker">Grams dispensed / day</div>
+            <div style="display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:10px">
+              <sc-for list="{{ weekBars }}" as="bar" hint-placeholder-count="7">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+                  <div style="width:100%;max-width:22px;border-radius:6px;background:{{ bar.color }};height:{{ bar.h }}px"></div>
+                  <span style="font-size:10px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ bar.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div class="card elev-sm" style="background:var(--color-accent-100);flex-direction:row;gap:10px;align-items:flex-start">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M12 3L2 20h20L12 3z" stroke="var(--color-accent-800)" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="var(--color-accent-800)" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <div style="font-size:12.5px;color:var(--color-accent-800)"><strong>Intake down 15%</strong> vs last week — consider checking in on Milo.</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div class="card-kicker" style="margin:4px 0 6px">Recent activity</div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px;border-radius:var(--radius-md) var(--radius-md) 0 0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div style="flex:1"><div style="font-size:13px;font-weight:700">Today · 6:00 PM</div><div class="card-meta">Dispensed 45g · Completed</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px;border-radius:0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div style="flex:1"><div style="font-size:13px;font-weight:700">Today · 8:00 AM</div><div class="card-meta">Dispensed 40g · Completed</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px;border-radius:0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="var(--color-neutral-500)" stroke-width="2.2"/><path d="M9 9l6 6M15 9l-6 6" stroke="var(--color-neutral-500)" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <div style="flex:1"><div style="font-size:13px;font-weight:700">Yesterday · 6:00 PM</div><div class="card-meta">Skipped · Bowl already full</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px;border-radius:0 0 var(--radius-md) var(--radius-md)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div style="flex:1"><div style="font-size:13px;font-weight:700">Yesterday · 8:00 AM</div><div class="card-meta">Dispensed 40g · Completed</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+    <section class="pp-screen" data-screen-label="Settings">
+      <div class="pp-scroll">
+        <div class="pp-header" style="padding-bottom:6px"><div><p class="pp-title">Settings</p></div></div>
+        <div style="padding:0 20px;display:flex;flex-direction:column;gap:20px">
+
+          <div>
+            <div class="card-kicker" style="margin:0 0 8px">Devices</div>
+            <div style="border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--color-divider)">
+                <div style="width:34px;height:34px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--color-accent-800)">S3</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700">ESP32-S3 Main Hub</div><div class="card-meta">Controller · Power bank 82%</div></div>
+                <span class="tag {{ settingsHubTagClass }}">{{ settingsHubTag }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--color-divider)">
+                <div style="width:34px;height:34px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--color-accent-800)">CAM</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700">ESP32-CAM Feeder Cam</div><div class="card-meta">Live video</div></div>
+                <span class="tag tag-accent-2">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--color-divider)">
+                <div style="width:34px;height:34px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--color-accent-800)">LC</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700">Load Cell + HX711</div><div class="card-meta">Bowl weight sensor</div></div>
+                <span class="tag tag-accent-2">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px">
+                <div style="width:34px;height:34px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--color-accent-800)">US</div>
+                <div style="flex:1"><div style="font-size:14px;font-weight:700">Ultrasonic Sensor</div><div class="card-meta">Food-level sensor</div></div>
+                <span class="tag tag-accent-2">Online</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-block" style="height:44px;margin-top:8px" onClick="{{ openPairing }}">+ Add Device</button>
+          </div>
+
+          <div>
+            <div class="card-kicker" style="margin:0 0 8px">Pet Profile</div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px">
+              <div style="width:44px;height:44px;border-radius:999px;background:var(--color-accent-2-500);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px">{{ petInitial }}</div>
+              <div><div class="card-title">{{ petName }}</div><div class="card-meta">{{ petBreedWeightLine }}</div></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-kicker" style="margin:0 0 8px">Preferences</div>
+            <div style="border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm)">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--color-divider)">
+                <span style="font-size:14px;font-weight:600">Units</span>
+                <div class="seg" style="font-size:12px">
+                  <label class="seg-opt"><input type="radio" name="units" checked="{{ isGrams }}" onChange="{{ setUnitsG }}"><span>g</span></label>
+                  <label class="seg-opt"><input type="radio" name="units" checked="{{ isOz }}" onChange="{{ setUnitsOz }}"><span>oz</span></label>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--color-divider)">
+                <span style="font-size:14px;font-weight:600">Push Notifications</span>
+                <button onClick="{{ toggleNotifs }}" style="width:44px;height:26px;border-radius:999px;background:{{ notifsSwitchBg }};border:none;position:relative;cursor:pointer">
+                  <div style="width:20px;height:20px;border-radius:999px;background:#fff;position:absolute;top:3px;left:{{ notifsSwitchPos }};box-shadow:0 1px 2px rgba(0,0,0,0.25)"></div>
+                </button>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+                <span style="font-size:14px;font-weight:600">Wi-Fi Network</span>
+                <span class="card-meta">Home_5G</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-kicker" style="margin:0 0 8px">About</div>
+            <div style="border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+              <span style="font-size:14px;font-weight:600">Version</span>
+              <span class="card-meta">1.0.0</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ isFeedSheet }}" hint-placeholder-val="{{ false }}">
+      <div class="pp-sheet-backdrop" onClick="{{ closeSheet }}">
+        <div class="pp-sheet" onClick="{{ stop }}">
+          <div class="pp-sheet-handle"></div>
+          <sc-if value="{{ feedStage }}" hint-placeholder-val="confirm">
+          </sc-if>
+          <sc-if value="{{ isFeedConfirm }}" hint-placeholder-val="{{ true }}">
+            <h3 style="margin:0 0 4px">Feed {{ petName }} now?</h3>
+            <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin:0 0 18px">Dispenses a manual portion right away, outside the schedule.</p>
+            <div class="card" style="margin-bottom:18px;flex-direction:row;align-items:center;justify-content:space-between">
+              <span style="font-size:13px;font-weight:600">Portion size</span>
+              <div style="display:flex;align-items:center;gap:14px">
+                <button class="pp-glass-btn" style="box-shadow:none" onClick="{{ decPortion }}">−</button>
+                <span style="font-family:var(--font-heading);font-size:18px;min-width:44px;text-align:center">{{ manualPortion }}g</span>
+                <button class="pp-glass-btn" style="box-shadow:none" onClick="{{ incPortion }}">+</button>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block" style="height:50px" onClick="{{ startFeeding }}">Dispense {{ manualPortion }}g</button>
+            <button class="btn btn-ghost btn-block" style="margin-top:6px" onClick="{{ closeSheet }}">Cancel</button>
+          </sc-if>
+          <sc-if value="{{ isFeeding }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:12px 0 8px">
+              <h3 style="margin:0 0 18px">Feeding {{ petName }}…</h3>
+              <div style="width:120px;height:120px;border-radius:999px;border:8px solid var(--color-neutral-300);position:relative;margin:0 auto 18px;display:flex;align-items:center;justify-content:center">
+                <div style="position:absolute;inset:-8px;border-radius:999px;border:8px solid var(--color-accent);clip-path:polygon(0 0,100% 0,100% {{ feedClipPct }}%,0 {{ feedClipPct }}%)"></div>
+                <span style="font-family:var(--font-heading);font-size:22px">{{ feedCurrentGrams }}g</span>
+              </div>
+              <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">Target {{ manualPortion }}g · Servo active</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isFeedDone }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:14px 0 6px">
+              <div style="width:64px;height:64px;border-radius:999px;background:var(--color-accent-2-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 style="margin:0 0 4px">Feeding complete</h3>
+              <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin:0 0 18px">Dispensed {{ manualPortion }}g just now.</p>
+              <button class="btn btn-primary btn-block" style="height:50px" onClick="{{ closeSheet }}">Done</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAlertsSheet }}" hint-placeholder-val="{{ false }}">
+      <div class="pp-sheet-backdrop" onClick="{{ closeSheet }}">
+        <div class="pp-sheet" onClick="{{ stop }}" style="padding-top:10px">
+          <div class="pp-sheet-handle"></div>
+          <h3 style="margin:0 0 14px">Alerts</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="card elev-sm" style="flex-direction:row;gap:10px;align-items:flex-start">
+              <div class="pp-dot" style="background:var(--color-accent);margin-top:5px"></div>
+              <div style="flex:1"><div style="font-weight:700;font-size:13px">Low food level</div><div style="font-size:12px;opacity:0.75">12% remaining — please refill the hopper</div><div class="card-meta" style="margin-top:3px">2h ago</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;gap:10px;align-items:flex-start">
+              <div class="pp-dot" style="background:var(--color-accent);margin-top:5px"></div>
+              <div style="flex:1"><div style="font-weight:700;font-size:13px">Reduced intake detected</div><div style="font-size:12px;opacity:0.75">{{ petName }} ate 15% less than usual this week</div><div class="card-meta" style="margin-top:3px">Today</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;gap:10px;align-items:flex-start">
+              <div class="pp-dot" style="background:var(--color-accent-2-500);margin-top:5px"></div>
+              <div style="flex:1"><div style="font-weight:700;font-size:13px">Feeding complete</div><div style="font-size:12px;opacity:0.75">45g dispensed at 6:00 PM</div><div class="card-meta" style="margin-top:3px">Today</div></div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;gap:10px;align-items:flex-start">
+              <div class="pp-dot" style="background:var(--color-accent-2-500);margin-top:5px"></div>
+              <div style="flex:1"><div style="font-weight:700;font-size:13px">Feeder Cam reconnected</div><div style="font-size:12px;opacity:0.75">Back online after a brief drop</div><div class="card-meta" style="margin-top:3px">Yesterday</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAddScheduleSheet }}" hint-placeholder-val="{{ false }}">
+      <div class="pp-sheet-backdrop" onClick="{{ closeSheet }}">
+        <div class="pp-sheet" onClick="{{ stop }}">
+          <div class="pp-sheet-handle"></div>
+          <h3 style="margin:0 0 16px">Add feeding time</h3>
+          <div class="field" style="margin-bottom:14px">
+            <label>Time</label>
+            <input class="input" value="{{ addTime }}" onChange="{{ setAddTime }}" placeholder="e.g. 7:00 AM">
+          </div>
+          <div class="card" style="margin-bottom:14px;flex-direction:row;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:600">Portion size</span>
+            <div style="display:flex;align-items:center;gap:14px">
+              <button class="pp-glass-btn" style="box-shadow:none" onClick="{{ decAddPortion }}">−</button>
+              <span style="font-family:var(--font-heading);font-size:18px;min-width:44px;text-align:center">{{ addPortion }}g</span>
+              <button class="pp-glass-btn" style="box-shadow:none" onClick="{{ incAddPortion }}">+</button>
+            </div>
+          </div>
+          <div style="margin-bottom:18px">
+            <label style="display:block;font-size:12px;margin-bottom:8px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">Repeat on</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <sc-for list="{{ addDaysChips }}" as="c" hint-placeholder-count="7">
+                <button class="btn" style="background:{{ c.bg }};color:{{ c.color }};font-size:12px;padding:6px 11px" onClick="{{ c.toggle }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" style="height:50px" onClick="{{ saveSchedule }}">Save</button>
+          <button class="btn btn-ghost btn-block" style="margin-top:6px" onClick="{{ closeSheet }}">Cancel</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPairingSheet }}" hint-placeholder-val="{{ false }}">
+      <div class="pp-sheet-backdrop" onClick="{{ closeSheet }}">
+        <div class="pp-sheet" onClick="{{ stop }}" style="text-align:center;padding-top:10px">
+          <div class="pp-sheet-handle"></div>
+          <sc-if value="{{ isPairingSearch }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:16px 0 6px">
+              <div style="width:64px;height:64px;border-radius:999px;border:4px solid var(--color-neutral-300);border-top-color:var(--color-accent);margin:0 auto 18px;animation:pp-spin 0.9s linear infinite"></div>
+              <h3 style="margin:0 0 4px">Searching…</h3>
+              <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">Looking for nearby PetPulse devices</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isPairingFound }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 0">
+              <div style="width:56px;height:56px;border-radius:999px;background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 8.5a2 2 0 012-2h2l1.2-2h5.6L16 6.5h2a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="var(--color-accent-700)" stroke-width="2.1" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="var(--color-accent-700)" stroke-width="2.1"/></svg>
+              </div>
+              <h3 style="margin:0 0 4px">PetPulse-Feeder-2 found</h3>
+              <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin-bottom:18px">A new ESP32-CAM on your network</p>
+              <button class="btn btn-primary btn-block" style="height:50px" onClick="{{ connectDevice }}">Connect</button>
+              <button class="btn btn-ghost btn-block" style="margin-top:6px" onClick="{{ closeSheet }}">Cancel</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isPairingDone }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:6px 0">
+              <div style="width:64px;height:64px;border-radius:999px;background:var(--color-accent-2-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="var(--color-accent-2-700)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 style="margin:0 0 4px">Connected</h3>
+              <p style="font-size:13px;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin-bottom:18px">Device paired successfully</p>
+              <button class="btn btn-primary btn-block" style="height:50px" onClick="{{ closeSheet }}">Done</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <sc-if value="{{ onboarded }}" hint-placeholder-val="{{ true }}">
+  <div class="pp-tabbar" style="display:flex">
+    <div class="pp-tabbar-glass"></div>
+    <button class="pp-tab" onClick="{{ goHome }}" style="color:{{ homeTabColor }}">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="{{ homeTabColor }}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9h12v-9" stroke="{{ homeTabColor }}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="pp-tab-label">Home</span>
+    </button>
+    <button class="pp-tab" onClick="{{ goSchedule }}" style="color:{{ scheduleTabColor }}">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="3" stroke="{{ scheduleTabColor }}" stroke-width="2.3"/><path d="M4 9.5h16M8 3v4M16 3v4" stroke="{{ scheduleTabColor }}" stroke-width="2.3" stroke-linecap="round"/></svg>
+      <span class="pp-tab-label">Schedule</span>
+    </button>
+    <button class="pp-tab" onClick="{{ goCamera }}" style="color:{{ cameraTabColor }}">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 8.5a2 2 0 012-2h2l1.2-2h5.6L16 6.5h2a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-9z" stroke="{{ cameraTabColor }}" stroke-width="2.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="{{ cameraTabColor }}" stroke-width="2.2"/></svg>
+      <span class="pp-tab-label">Camera</span>
+    </button>
+    <button class="pp-tab" onClick="{{ goHistory }}" style="color:{{ historyTabColor }}">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 19V10M11 19V5M17 19v-7" stroke="{{ historyTabColor }}" stroke-width="2.3" stroke-linecap="round"/></svg>
+      <span class="pp-tab-label">History</span>
+    </button>
+    <button class="pp-tab" onClick="{{ goSettings }}" style="color:{{ settingsTabColor }}">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="{{ settingsTabColor }}" stroke-width="2.2"/><path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5" stroke="{{ settingsTabColor }}" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span class="pp-tab-label">Settings</span>
+    </button>
+  </div>
+  </sc-if>
+
+  <div class="pp-home-indicator"><div style="width:139px;height:5px;border-radius:100px;background:rgba(32,30,29,0.3)"></div></div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940},&quot;connectivityState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Online&quot;,&quot;options&quot;:[&quot;Online&quot;,&quot;Device Offline&quot;,&quot;Sensor Error&quot;,&quot;Low Battery&quot;,&quot;Cloud Unreachable&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo states&quot;}}">
+class Component extends DCLogic {
+  DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  state = {
+    activeTab: 'home',
+    sheet: null,
+    feedStage: 'confirm',
+    manualPortion: 45,
+    feedCurrentGrams: 0,
+    selectedDay: 'Mon',
+    schedule: {
+      Mon: [{ time: '8:00 AM', grams: 40, enabled: true }, { time: '6:00 PM', grams: 45, enabled: true }],
+      Tue: [{ time: '8:00 AM', grams: 40, enabled: true }, { time: '6:00 PM', grams: 45, enabled: true }],
+      Wed: [{ time: '8:00 AM', grams: 40, enabled: true }, { time: '6:00 PM', grams: 45, enabled: true }],
+      Thu: [{ time: '8:00 AM', grams: 40, enabled: true }, { time: '6:00 PM', grams: 45, enabled: true }],
+      Fri: [{ time: '8:00 AM', grams: 40, enabled: true }, { time: '6:00 PM', grams: 45, enabled: true }],
+      Sat: [{ time: '9:00 AM', grams: 50, enabled: true }, { time: '7:00 PM', grams: 50, enabled: true }],
+      Sun: [{ time: '9:00 AM', grams: 50, enabled: true }, { time: '7:00 PM', grams: 50, enabled: true }],
+    },
+    addTime: '7:00 AM',
+    addPortion: 40,
+    addDays: { Mon: true, Tue: false, Wed: false, Thu: false, Fri: false, Sat: false, Sun: false },
+    micOn: false,
+    nightVision: false,
+    snapshotFlash: false,
+    lastSnapshot: '—',
+    units: 'g',
+    notifsOn: true,
+    pairingStep: 0,
+    onboarded: false,
+    obStep: 'welcome',
+    obName: '',
+    obBreed: '',
+    obAgeValue: 2,
+    obAgeUnit: 'yrs',
+    obWeightValue: 12,
+    obWeightUnit: 'kg',
+    obHealth: { Diabetes: false, Obesity: false, 'Food allergies': false, Arthritis: false, 'Kidney disease': false, None: false },
+    obNotes: '',
+    obPairingStep: 0,
+    obDeviceConnected: false,
+  };
+
+  HEALTH_OPTIONS = ['None', 'Diabetes', 'Obesity', 'Food allergies', 'Arthritis', 'Kidney disease'];
+  OB_STEPS = ['basics', 'health', 'pairing', 'done'];
+
+  petName = 'Milo';
+  bowlWeight = 12.5;
+  foodLevelPct = 78;
+  nextFeedTime = '6:00 PM';
+  nextFeedGrams = 45;
+
+  stop = (e) => { if (e) e.stopPropagation(); };
+  openFeedSheet = () => this.setState({ sheet: 'feed', feedStage: 'confirm', feedCurrentGrams: 0 });
+  openAlerts = () => this.setState({ sheet: 'alerts' });
+  openCamera = () => this.setState({ activeTab: 'camera' });
+  closeSheet = () => { clearInterval(this._feedTimer); this.setState({ sheet: null }); };
+  incPortion = () => this.setState(s => ({ manualPortion: Math.min(120, s.manualPortion + 5) }));
+  decPortion = () => this.setState(s => ({ manualPortion: Math.max(10, s.manualPortion - 5) }));
+
+  startFeeding = () => {
+    this.setState({ feedStage: 'feeding', feedCurrentGrams: 0 });
+    clearInterval(this._feedTimer);
+    this._feedTimer = setInterval(() => {
+      this.setState(s => {
+        const target = s.manualPortion;
+        const next = Math.min(target, s.feedCurrentGrams + Math.ceil(target / 10));
+        if (next >= target) {
+          clearInterval(this._feedTimer);
+          setTimeout(() => this.setState({ feedStage: 'done' }), 400);
+        }
+        return { feedCurrentGrams: next };
+      });
+    }, 180);
+  };
+
+  goTab = (tab) => this.setState({ activeTab: tab, sheet: null });
+
+  goObBasics = () => this.setState({ obStep: 'basics' });
+  goObHealth = () => this.setState({ obStep: 'health' });
+  goObPairing = () => {
+    this.setState({ obStep: 'pairing', obPairingStep: 0 });
+    setTimeout(() => this.setState(s => s.obStep === 'pairing' && s.obPairingStep === 0 ? { obPairingStep: 1 } : {}), 1400);
+  };
+  goObDone = () => this.setState({ obStep: 'done' });
+  failObPairing = () => this.setState({ obPairingStep: -1 });
+  skipObPairing = () => this.setState({ obDeviceConnected: false, obStep: 'done' });
+  connectObDevice = () => this.setState({ obPairingStep: 2, obDeviceConnected: true });
+  finishOnboarding = () => this.setState({ onboarded: true });
+  obBack = () => this.setState(s => {
+    const i = this.OB_STEPS.indexOf(s.obStep);
+    if (i <= 0) return { obStep: 'welcome' };
+    return { obStep: this.OB_STEPS[i - 1] };
+  });
+  setObName = (e) => this.setState({ obName: e.target.value });
+  setObBreed = (e) => this.setState({ obBreed: e.target.value });
+  setObNotes = (e) => this.setState({ obNotes: e.target.value });
+  incAge = () => this.setState(s => ({ obAgeValue: Math.min(30, s.obAgeValue + 1) }));
+  decAge = () => this.setState(s => ({ obAgeValue: Math.max(0, s.obAgeValue - 1) }));
+  setAgeYrs = () => this.setState({ obAgeUnit: 'yrs' });
+  setAgeMos = () => this.setState({ obAgeUnit: 'mos' });
+  incWeight = () => this.setState(s => ({ obWeightValue: s.obWeightValue + 1 }));
+  decWeight = () => this.setState(s => ({ obWeightValue: Math.max(1, s.obWeightValue - 1) }));
+  setWeightKg = () => this.setState({ obWeightUnit: 'kg' });
+  setWeightLb = () => this.setState({ obWeightUnit: 'lb' });
+  toggleHealth = (key) => this.setState(s => {
+    if (key === 'None') return { obHealth: { Diabetes: false, Obesity: false, 'Food allergies': false, Arthritis: false, 'Kidney disease': false, None: !s.obHealth.None } };
+    return { obHealth: { ...s.obHealth, None: false, [key]: !s.obHealth[key] } };
+  });
+
+  setUnitsG = () => this.setState({ units: 'g' });
+  setUnitsOz = () => this.setState({ units: 'oz' });
+  toggleNotifs = () => this.setState(s => ({ notifsOn: !s.notifsOn }));
+  openPairing = () => {
+    this.setState({ sheet: 'pairing', pairingStep: 0 });
+    setTimeout(() => this.setState(s => s.sheet === 'pairing' ? { pairingStep: 1 } : {}), 1400);
+  };
+  connectDevice = () => this.setState({ pairingStep: 2 });
+
+  toggleMic = () => this.setState(s => ({ micOn: !s.micOn }));
+  toggleNightVision = () => this.setState(s => ({ nightVision: !s.nightVision }));
+  takeSnapshot = () => {
+    this.setState({ snapshotFlash: true, lastSnapshot: 'Just now' });
+    setTimeout(() => this.setState({ snapshotFlash: false }), 150);
+  };
+
+  toggleScheduleItem = (day, i) => this.setState(s => {
+    const arr = s.schedule[day].map((it, idx) => idx === i ? { ...it, enabled: !it.enabled } : it);
+    return { schedule: { ...s.schedule, [day]: arr } };
+  });
+
+  openAddSchedule = () => this.setState(s => ({
+    sheet: 'addSchedule', addTime: '7:00 AM', addPortion: 40,
+    addDays: { Mon: false, Tue: false, Wed: false, Thu: false, Fri: false, Sat: false, Sun: false, [s.selectedDay]: true },
+  }));
+  toggleAddDay = (day) => this.setState(s => ({ addDays: { ...s.addDays, [day]: !s.addDays[day] } }));
+  incAddPortion = () => this.setState(s => ({ addPortion: Math.min(150, s.addPortion + 5) }));
+  decAddPortion = () => this.setState(s => ({ addPortion: Math.max(10, s.addPortion - 5) }));
+  setAddTime = (e) => this.setState({ addTime: e.target.value });
+  saveSchedule = () => this.setState(s => {
+    const schedule = { ...s.schedule };
+    this.DAYS.forEach(d => {
+      if (s.addDays[d]) schedule[d] = [...schedule[d], { time: s.addTime, grams: s.addPortion, enabled: true }];
+    });
+    return { schedule, sheet: null };
+  });
+
+  renderVals() {
+    const s = this.state;
+    const tabColor = (t) => s.activeTab === t ? 'var(--color-accent-700)' : 'var(--color-neutral-600)';
+    const dayPillsData = this.DAYS.map(d => ({
+      label: d, bg: d === s.selectedDay ? 'var(--color-accent)' : 'transparent',
+      color: d === s.selectedDay ? '#fff' : 'var(--color-text)',
+      select: () => this.setState({ selectedDay: d }),
+    }));
+    const scheduleForDay = s.schedule[s.selectedDay].map((it, i) => ({
+      time: it.time, grams: it.grams,
+      toggle: () => this.toggleScheduleItem(s.selectedDay, i),
+      switchBg: it.enabled ? 'var(--color-accent-2-500)' : 'var(--color-neutral-300)',
+      switchPos: it.enabled ? '20px' : '2px',
+    }));
+    const addDaysChips = this.DAYS.map(d => ({
+      label: d, bg: s.addDays[d] ? 'var(--color-accent-2-500)' : 'var(--color-surface)',
+      color: s.addDays[d] ? '#fff' : 'var(--color-text)',
+      toggle: () => this.toggleAddDay(d),
+    }));
+    const petName = s.obName.trim() || 'Milo';
+    const petBreed = s.obBreed.trim() || 'Corgi';
+    const obStepIdx = this.OB_STEPS.indexOf(s.obStep);
+    const obDots = this.OB_STEPS.map((step, i) => ({ bg: i <= obStepIdx ? 'var(--color-accent)' : 'var(--color-neutral-300)' }));
+    const healthChips = this.HEALTH_OPTIONS.map(label => ({
+      label, bg: s.obHealth[label] ? 'var(--color-accent-2-500)' : 'var(--color-surface)',
+      color: s.obHealth[label] ? '#fff' : 'var(--color-text)',
+      toggle: () => this.toggleHealth(label),
+    }));
+    const selectedHealth = this.HEALTH_OPTIONS.filter(h => s.obHealth[h]);
+    const conn = this.props.connectivityState ?? 'Online';
+    const isDeviceOffline = conn === 'Device Offline';
+    const isSensorError = conn === 'Sensor Error';
+    const isLowBattery = conn === 'Low Battery';
+    const isCloudUnreachable = conn === 'Cloud Unreachable';
+    const bannerMap = {
+      'Device Offline': { bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-800)', title: 'Feeder is offline', detail: 'Last seen 22 minutes ago — check its power and Wi-Fi.' },
+      'Sensor Error': { bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)', title: 'Sensor error', detail: 'Bowl weight and food-level sensors aren\u2019t reporting.' },
+      'Low Battery': { bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)', title: 'Power bank low — 8%', detail: 'Recharge soon to keep the feeder running.' },
+      'Cloud Unreachable': { bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-800)', title: 'Can\u2019t reach PetPulse cloud', detail: 'Showing the last data synced from your feeder.' },
+    };
+    const banner = bannerMap[conn];
+    return {
+      onboarded: s.onboarded,
+      isOnboarding: !s.onboarded,
+      statusBarColor: s.obStep === 'welcome' && !s.onboarded ? '#fff' : 'var(--color-text)',
+      isConnIssue: !!banner,
+      bannerBg: banner ? banner.bg : 'transparent',
+      bannerFg: banner ? banner.fg : 'inherit',
+      bannerTitle: banner ? banner.title : '',
+      bannerDetail: banner ? banner.detail : '',
+      isDeviceOffline,
+      liveDotColor: isDeviceOffline ? 'var(--color-neutral-500)' : '#ff5b4a',
+      liveLabel: isDeviceOffline ? 'OFFLINE' : 'LIVE',
+      cameraTagLabel: isDeviceOffline ? 'Offline' : 'Online',
+      bowlDisplay: isSensorError ? '—' : this.bowlWeight + 'g',
+      bowlMeta: isSensorError ? 'Sensor error' : 'Last refilled 6:00 PM',
+      foodDisplay: isSensorError ? '—' : this.foodLevelPct + '%',
+      feedBtnLabel: isDeviceOffline ? 'Feeder Offline' : ('Feed ' + petName + ' Now'),
+      settingsHubTag: isDeviceOffline ? 'Offline' : (isLowBattery ? 'Low battery' : 'Online'),
+      settingsHubTagClass: isDeviceOffline ? 'tag-neutral' : (isLowBattery ? 'tag-accent' : 'tag-accent-2'),
+      isObWelcome: s.obStep === 'welcome',
+      isObStepScreen: s.obStep !== 'welcome',
+      isObBasics: s.obStep === 'basics',
+      isObHealth: s.obStep === 'health',
+      isObPairing: s.obStep === 'pairing',
+      isObDone: s.obStep === 'done',
+      obDots,
+      goObBasics: this.goObBasics,
+      goObHealth: this.goObHealth,
+      goObPairing: this.goObPairing,
+      goObDone: this.goObDone,
+      skipObPairing: this.skipObPairing,
+      connectObDevice: this.connectObDevice,
+      finishOnboarding: this.finishOnboarding,
+      obBack: this.obBack,
+      obName: s.obName,
+      obBreed: s.obBreed,
+      setObName: this.setObName,
+      setObBreed: this.setObBreed,
+      setObNotes: this.setObNotes,
+      obNotes: s.obNotes,
+      obAgeValue: s.obAgeValue,
+      incAge: this.incAge,
+      decAge: this.decAge,
+      isAgeYrs: s.obAgeUnit === 'yrs',
+      isAgeMos: s.obAgeUnit === 'mos',
+      setAgeYrs: this.setAgeYrs,
+      setAgeMos: this.setAgeMos,
+      obAgeUnitLabel: s.obAgeUnit,
+      obWeightValue: s.obWeightValue,
+      obWeightUnit: s.obWeightUnit,
+      incWeight: this.incWeight,
+      decWeight: this.decWeight,
+      isWeightKg: s.obWeightUnit === 'kg',
+      isWeightLb: s.obWeightUnit === 'lb',
+      setWeightKg: this.setWeightKg,
+      setWeightLb: this.setWeightLb,
+      obBasicsInvalid: s.obName.trim().length === 0,
+      healthChips,
+      obHealthSummary: selectedHealth.length ? selectedHealth.join(', ') : 'None reported',
+      isObPairSearch: s.obStep === 'pairing' && s.obPairingStep === 0,
+      isObPairFound: s.obStep === 'pairing' && s.obPairingStep === 1,
+      isObPairDone: s.obStep === 'pairing' && s.obPairingStep === 2,
+      isObPairFailed: s.obStep === 'pairing' && s.obPairingStep === -1,
+      failObPairing: this.failObPairing,
+      obPairingContinueDisabled: false,
+      obDeviceSummary: s.obDeviceConnected ? 'Connected' : 'Not connected yet',
+      petInitial: petName.charAt(0).toUpperCase(),
+      petBreedWeightLine: petBreed + ' · ' + s.obWeightValue + s.obWeightUnit,
+      isHome: s.activeTab === 'home' && s.onboarded,
+      isSchedule: s.activeTab === 'schedule' && s.onboarded,
+      isCamera: s.activeTab === 'camera' && s.onboarded,
+      isHistory: s.activeTab === 'history' && s.onboarded,
+      isSettings: s.activeTab === 'settings' && s.onboarded,
+      isGrams: s.units === 'g',
+      isOz: s.units === 'oz',
+      setUnitsG: this.setUnitsG,
+      setUnitsOz: this.setUnitsOz,
+      toggleNotifs: this.toggleNotifs,
+      notifsSwitchBg: s.notifsOn ? 'var(--color-accent-2-500)' : 'var(--color-neutral-300)',
+      notifsSwitchPos: s.notifsOn ? '20px' : '2px',
+      openPairing: this.openPairing,
+      connectDevice: this.connectDevice,
+      isPairingSheet: s.sheet === 'pairing',
+      isPairingSearch: s.sheet === 'pairing' && s.pairingStep === 0,
+      isPairingFound: s.sheet === 'pairing' && s.pairingStep === 1,
+      isPairingDone: s.sheet === 'pairing' && s.pairingStep === 2,
+      weekBars: [
+        { label: 'Mon', h: 76, color: 'var(--color-accent-2-400)' },
+        { label: 'Tue', h: 82, color: 'var(--color-accent-2-400)' },
+        { label: 'Wed', h: 70, color: 'var(--color-accent-2-400)' },
+        { label: 'Thu', h: 80, color: 'var(--color-accent-2-400)' },
+        { label: 'Fri', h: 84, color: 'var(--color-accent-2-400)' },
+        { label: 'Sat', h: 92, color: 'var(--color-accent-2-500)' },
+        { label: 'Sun', h: 60, color: 'var(--color-accent-700)' },
+      ],
+      snapshotFlash: s.snapshotFlash,
+      lastSnapshot: s.lastSnapshot,
+      toggleMic: this.toggleMic,
+      toggleNightVision: this.toggleNightVision,
+      takeSnapshot: this.takeSnapshot,
+      micBtnBg: s.micOn ? 'var(--color-accent-2-200)' : 'transparent',
+      micLabel: s.micOn ? 'Mic on' : 'Mic off',
+      nightLabel: s.nightVision ? 'Night on' : 'Night vision',
+      daysPills: dayPillsData,
+      scheduleForDay: scheduleForDay,
+      openAddSchedule: this.openAddSchedule,
+      isAddScheduleSheet: s.sheet === 'addSchedule',
+      addTime: s.addTime,
+      addPortion: s.addPortion,
+      addDaysChips: addDaysChips,
+      setAddTime: this.setAddTime,
+      incAddPortion: this.incAddPortion,
+      decAddPortion: this.decAddPortion,
+      saveSchedule: this.saveSchedule,
+      petName: petName,
+      dayGreeting: "Here's how today is going",
+      hasUnreadAlerts: true,
+      bowlWeight: this.bowlWeight,
+      foodLevelPct: this.foodLevelPct,
+      nextFeedTime: this.nextFeedTime,
+      nextFeedGrams: this.nextFeedGrams,
+      sheet: s.sheet,
+      isFeedSheet: s.sheet === 'feed',
+      isAlertsSheet: s.sheet === 'alerts',
+      isFeedConfirm: s.sheet === 'feed' && s.feedStage === 'confirm',
+      isFeeding: s.sheet === 'feed' && s.feedStage === 'feeding',
+      isFeedDone: s.sheet === 'feed' && s.feedStage === 'done',
+      feedStage: s.feedStage,
+      manualPortion: s.manualPortion,
+      feedCurrentGrams: s.feedCurrentGrams,
+      feedClipPct: Math.round((s.feedCurrentGrams / s.manualPortion) * 100),
+      openFeedSheet: this.openFeedSheet,
+      openAlerts: this.openAlerts,
+      openCamera: this.openCamera,
+      closeSheet: this.closeSheet,
+      stop: this.stop,
+      incPortion: this.incPortion,
+      decPortion: this.decPortion,
+      startFeeding: this.startFeeding,
+      goHome: () => this.goTab('home'),
+      goSchedule: () => this.goTab('schedule'),
+      goCamera: () => this.goTab('camera'),
+      goHistory: () => this.goTab('history'),
+      goSettings: () => this.goTab('settings'),
+      homeTabColor: tabColor('home'),
+      scheduleTabColor: tabColor('schedule'),
+      cameraTabColor: tabColor('camera'),
+      historyTabColor: tabColor('history'),
+      settingsTabColor: tabColor('settings'),
+    };
+  }
+}
+</script>
+</body>
+</html>
