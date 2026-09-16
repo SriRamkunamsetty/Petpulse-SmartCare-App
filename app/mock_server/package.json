@@ -1,0 +1,15 @@
+{
+  "name": "petpulse-mock-server",
+  "version": "1.0.0",
+  "description": "Reference implementation of docs/API_CONTRACT.md for local development — an in-memory stand-in for the cloud relay + ESP32 hub/cam until real firmware exists.",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "jpeg-js": "^0.4.4"
+  }
+}

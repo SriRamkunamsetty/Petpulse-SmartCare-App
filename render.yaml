@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: petpulse-mock-server
+    runtime: node
+    plan: free
+    rootDir: app/mock_server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
