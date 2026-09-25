@@ -47,7 +47,13 @@ def main():
 
     hx711 = HX711(config.HX711_DOUT_PIN, config.HX711_SCK_PIN)
     hx711.set_scale(config.LOADCELL_CALIBRATION_FACTOR)
-    hx711.tare()
+    try:
+        hx711.tare()
+    except TimeoutError:
+        # Not wired yet / not powered — same "continue without it" behavior
+        # as the old firmware's HX711 boot check. TelemetryLoop's own
+        # per-read try/except keeps reporting sensor_error from here on.
+        print("HX711 not found at boot - continuing without it.")
 
     ultrasonic = Ultrasonic(config.TRIG_PIN, config.ECHO_PIN)
     oled = OledDisplay(config.OLED_I2C_PORT, config.OLED_I2C_ADDRESS)
