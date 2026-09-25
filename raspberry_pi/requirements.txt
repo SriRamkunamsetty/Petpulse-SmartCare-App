@@ -1,5 +1,6 @@
 fastapi>=0.110
 uvicorn[standard]>=0.29
 RPi.GPIO>=0.7.1
+lgpio>=0.2.2
 gpiozero>=2.0
 luma.oled>=3.13

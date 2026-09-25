@@ -1,10 +1,12 @@
-"""MG90S feeder gate servo — driven via gpiozero's default pin factory
-(RPi.GPIO). This gate only ever holds two fixed positions briefly (open to
-dispense, closed the rest of the time), not a continuously-adjusted angle,
-so RPi.GPIO's software-PWM jitter isn't a real problem here — a smoother
-DMA-based backend like pigpio would be nicer but isn't required. (pigpio's
-daemon package has been dropped from current Raspberry Pi OS releases
-["Trixie" and later], so this avoids depending on it at all.)
+"""MG90S feeder gate servo — driven via gpiozero's default pin factory,
+which auto-selects `lgpio` (current Raspberry Pi OS's supported GPIO
+backend — plain `RPi.GPIO` doesn't reliably work on the newer kernels
+["Trixie" and later] use, hence `lgpio` being in requirements.txt). This
+gate only ever holds two fixed positions briefly (open to dispense, closed
+the rest of the time), not a continuously-adjusted angle, so a smoother
+DMA-based backend like pigpio would be nicer but isn't required — and
+pigpio's own daemon package has been dropped from current Raspberry Pi OS
+releases anyway, so this avoids depending on it at all.
 
 Wiring:
   Signal -> config.SERVO_PIN
