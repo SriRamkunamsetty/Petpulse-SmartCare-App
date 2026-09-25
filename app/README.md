@@ -12,7 +12,10 @@ health → feeder pairing).
 
 Real ESP32-S3/ESP32-CAM firmware lives in `../firmware/` (sibling to
 this `app/` directory) — see `firmware/README.md` for wiring, flashing,
-and how it connects to this app.
+and how it connects to this app. A Raspberry Pi can be used as the main
+controller instead of the ESP32-S3 — see `../raspberry_pi/` — implementing
+the same REST contract, so this app doesn't change either way. The
+ESP32-CAM is unaffected by that choice; it's always a separate board.
 
 Every screen is a real REST client against the contract in
 [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md) — there's no hardcoded mock

@@ -1,0 +1,20 @@
+[Unit]
+Description=PetPulse Raspberry Pi hub
+After=network-online.target pigpiod.service
+Wants=network-online.target
+Requires=pigpiod.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/petpulse/raspberry_pi
+ExecStart=/usr/bin/python3 /home/pi/petpulse/raspberry_pi/main.py
+Restart=always
+RestartSec=3
+# Root is used here for two reasons: binding port 80 (see config.HTTP_PORT)
+# and GPIO access under the classic RPi.GPIO backend. If you switch to
+# port 8080 + a non-root user in the `gpio`/`i2c`/`spi` groups instead,
+# drop this line — see README.md "Running as a service".
+User=root
+
+[Install]
+WantedBy=multi-user.target

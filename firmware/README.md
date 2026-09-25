@@ -7,6 +7,13 @@ in this build — earlier revisions used an Arduino UNO relayed over UART;
 that board and `arduino_uno_feeder.ino` have been retired. Just **two**
 boards total now: ESP32-S3 and ESP32-CAM.
 
+> **Using a Raspberry Pi as the main controller instead?** See
+> `../raspberry_pi/` — it replaces everything in this document *except*
+> the ESP32-CAM section right below, which stays exactly as-is either way
+> (the camera is always a separate, independent board). The Raspberry Pi
+> build implements the same REST contract as `esp32s3_hub.ino`, so the app
+> doesn't need any changes either way.
+
 **Test order — don't skip this.** Flash and verify each sensor on its own
 *before* touching the combined hub firmware. A wiring mistake is much
 easier to spot on a 20-line sketch than buried inside 300+ lines that also
