@@ -75,12 +75,11 @@ before.
 ```bash
 # Enable I2C for the OLED
 sudo raspi-config   # Interface Options -> I2C -> enable, then reboot
-
-# pigpio daemon, for jitter-free servo PWM
-sudo apt update
-sudo apt install -y pigpio python3-pigpio
-sudo systemctl enable --now pigpiod
 ```
+
+(No `pigpio` daemon needed — the servo driver uses gpiozero's default
+`RPi.GPIO` backend, since `pigpio`'s daemon package was dropped from
+current Raspberry Pi OS releases anyway.)
 
 ## 3. Install and calibrate
 

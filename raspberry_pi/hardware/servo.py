@@ -1,10 +1,10 @@
-"""MG90S feeder gate servo — driven via gpiozero + the pigpio pin factory
-for jitter-free PWM. RPi.GPIO's software PWM isn't precise enough to hold
-a servo at a stable angle without visible twitch; pigpio uses DMA-based
-timing instead. Start the daemon before running this:
-
-    sudo apt install pigpio python3-pigpio
-    sudo systemctl enable --now pigpiod
+"""MG90S feeder gate servo — driven via gpiozero's default pin factory
+(RPi.GPIO). This gate only ever holds two fixed positions briefly (open to
+dispense, closed the rest of the time), not a continuously-adjusted angle,
+so RPi.GPIO's software-PWM jitter isn't a real problem here — a smoother
+DMA-based backend like pigpio would be nicer but isn't required. (pigpio's
+daemon package has been dropped from current Raspberry Pi OS releases
+["Trixie" and later], so this avoids depending on it at all.)
 
 Wiring:
   Signal -> config.SERVO_PIN
@@ -14,12 +14,10 @@ Wiring:
             ground — required for the signal wire to work at all)
 """
 from gpiozero import AngularServo
-from gpiozero.pins.pigpio import PiGPIOFactory
 
 
 class FeederServo:
     def __init__(self, pin: int, closed_angle: float, open_angle: float):
-        factory = PiGPIOFactory()
         # min_angle/max_angle span both calibrated angles regardless of
         # which one ends up numerically larger for your gate mechanism.
         self._servo = AngularServo(
@@ -28,7 +26,6 @@ class FeederServo:
             max_angle=180,
             min_pulse_width=0.0005,
             max_pulse_width=0.0025,
-            pin_factory=factory,
         )
         self._closed_angle = closed_angle
         self._open_angle = open_angle

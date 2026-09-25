@@ -18,8 +18,7 @@ ECHO_PIN = 24  # through a 1k/2k divider — Pi GPIO is 3.3V-only, ECHO is 5V
 
 BUTTON_PIN = 16  # internal pull-up; other leg to GND
 
-SERVO_PIN = 18  # hardware-PWM-capable pin; use with the pigpio factory (see
-                 # hardware/servo.py) for jitter-free control
+SERVO_PIN = 18  # hardware-PWM-capable pin (see hardware/servo.py)
 
 # OLED (SSD1306) is I2C — uses the Pi's dedicated I2C pins (GPIO2 SDA /
 # GPIO3 SCL, physical pins 3/5), not GPIO numbers you choose. Enable I2C
